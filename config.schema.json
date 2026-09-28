@@ -1,0 +1,37 @@
+{
+  "pluginAlias": "GoveeSceneExtractor",
+  "pluginType": "platform",
+  "singular": true,
+  "customUi": true,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "default": "Govee Scene Extractor"
+      },
+      "logPath": {
+        "title": "Homebridge log path",
+        "description": "Leave blank to use homebridge.log in the Homebridge storage folder.",
+        "type": "string"
+      },
+      "deviceMap": {
+        "title": "Device map (fallback)",
+        "description": "Optional name-to-id overrides. Stock Govee lightDevices are used first. Keep this only if a name still has no id.",
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        },
+        "default": {}
+      },
+      "resetAfterMs": {
+        "title": "Switch reset (ms)",
+        "description": "How long the HomeKit switch stays on before flipping back.",
+        "type": "integer",
+        "default": 1000,
+        "minimum": 250
+      }
+    }
+  }
+}

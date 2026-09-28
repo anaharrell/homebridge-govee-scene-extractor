@@ -1,0 +1,15 @@
+# Not part of the published plugin
+test/
+icons/
+favicon *.png
+*.canvas.tsx
+.github/
+.DS_Store
+branding/.DS_Store
+.git/
+*.log
+.env
+.env.*
+*.tgz
+coverage/
+.nyc_output/

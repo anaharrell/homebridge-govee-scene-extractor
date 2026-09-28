@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+
+# Logs and runtime output
+*.log
+npm-debug.log*
+*.tgz
+
+# Environment and credentials
+.env
+.env.*
+*.pem
+*.pfx
+*.p12
+auth.json
+secrets.json
+
+# Homebridge runtime / machine-specific data
+.homebridge/
+config.json
+state.json
+*.bak
+*.backup
+
+# Editor and OS metadata
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Test / coverage leftovers
+coverage/
+.nyc_output/
+
+# Local icon experiments — not for the public repo
+icons/
+favicon *.png
+*.canvas.tsx
