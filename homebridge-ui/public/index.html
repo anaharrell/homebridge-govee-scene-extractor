@@ -19,6 +19,23 @@
     border-radius: 10px;
     flex-shrink: 0;
   }
+
+  /* Bootstrap .text-muted stays on the light :root token in this iframe. */
+  .card-title,
+  .form-check-label {
+    color: inherit;
+  }
+
+  .text-muted {
+    color: inherit !important;
+    opacity: 0.7;
+  }
+
+  body.dark-mode .btn-link,
+  body.dark-mode .btn-link:hover,
+  body.dark-mode .btn-link:focus {
+    color: inherit;
+  }
 </style>
 
 <div class="card">
@@ -37,6 +54,28 @@
 <script>
 (function () {
   const tree = document.getElementById('gsl-tree');
+
+  function syncBootstrapTheme() {
+    const dark = document.body.classList.contains('dark-mode')
+      || document.body.className.indexOf('config-ui-x-dark-mode-') !== -1;
+    const theme = dark ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-bs-theme', theme);
+    document.body.setAttribute('data-bs-theme', theme);
+  }
+
+  syncBootstrapTheme();
+  new MutationObserver(syncBootstrapTheme).observe(document.body, {
+    attributes: true,
+    attributeFilter: ['class']
+  });
+
+  if (typeof homebridge.userCurrentLightingMode === 'function') {
+    homebridge.userCurrentLightingMode().then(mode => {
+      if (mode === 'dark')
+        document.body.classList.add('dark-mode');
+      syncBootstrapTheme();
+    }).catch(() => {});
+  }
 
   function lastSeenLine(scene) {
     const seen = scene.lastSeenLabel || 'Unknown';
@@ -88,7 +127,7 @@
       const deviceDisabled = device.associated ? '' : 'disabled';
       const emptyHint = (device.scenes || []).length
         ? ''
-        : '<small class="text-muted gsl-status">No scenes learned</small>';
+        : '<small class="text-muted gsl-status">No scenes found</small>';
       const scenes = (device.scenes || []).map((scene, si) => `
         <div class="gsl-scene">
           <div class="form-check d-flex justify-content-between align-items-start">
